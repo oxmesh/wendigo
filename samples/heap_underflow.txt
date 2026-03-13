@@ -1,0 +1,14 @@
+=================================================================
+==99003==ERROR: AddressSanitizer: heap-buffer-overflow on address 0x60200000ef6c at pc 0x0000004b2100 bp 0x7ffc22334450 sp 0x7ffc22334448
+WRITE of size 4 at 0x60200000ef6c thread T0
+    #0 0x4b20ff in write_header /src/encoder.c:77:5
+    #1 0x4b1200 in encode_block /src/encoder.c:55:12
+    #2 0x4b0100 in main /src/main.c:22:5
+
+0x60200000ef6c is located 4 bytes to the left of 64-byte region [0x60200000ef70,0x60200000efb0)
+allocated by thread T0 here:
+    #0 0x4938d0 in malloc /llvm/lib/asan/asan_malloc_linux.cpp:145:3
+    #1 0x4b1100 in encode_block /src/encoder.c:50:18
+
+SUMMARY: AddressSanitizer: heap-buffer-overflow /src/encoder.c:77:5 in write_header
+==99003==ABORTING

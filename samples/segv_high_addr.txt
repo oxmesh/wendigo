@@ -1,0 +1,9 @@
+=================================================================
+==99010==ERROR: AddressSanitizer: SEGV on unknown address 0x7f0deadbeef0 (pc 0x0000004b3400 bp 0x7ffc22334450 sp 0x7ffc22334448 T0)
+==99010==The signal is caused by a READ memory access.
+    #0 0x4b33ff in corrupt_read /src/corrupt.c:44:8
+    #1 0x4b2200 in handle_msg /src/corrupt.c:30:5
+    #2 0x4b1000 in main /src/main.c:12:5
+
+SUMMARY: AddressSanitizer: SEGV /src/corrupt.c:44:8 in corrupt_read
+==99010==ABORTING

@@ -1,0 +1,9 @@
+=================================================================
+==99009==ERROR: AddressSanitizer: SEGV on unknown address 0x000000000008 (pc 0x0000004a2300 bp 0x7ffc11223340 sp 0x7ffc11223338 T0)
+==99009==The signal is caused by a WRITE memory access.
+    #0 0x4a22ff in write_null /src/null.c:22:10
+    #1 0x4a1800 in process /src/null.c:14:5
+    #2 0x4a1000 in main /src/main.c:8:5
+
+SUMMARY: AddressSanitizer: SEGV /src/null.c:22:10 in write_null
+==99009==ABORTING

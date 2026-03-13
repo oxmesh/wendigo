@@ -1,0 +1,24 @@
+Loading configuration from /etc/app.conf
+Initializing subsystem A... OK
+Initializing subsystem B... OK
+Processing file: input.bin
+[INFO] Decoding header (version=3, flags=0x1f)
+[WARN] Unexpected field length: 9999
+=================================================================
+==55555==ERROR: AddressSanitizer: heap-buffer-overflow on address 0x60200000ef88 at pc 0x00000051b5f0 bp 0x7ffd348ab350 sp 0x7ffd348aab00
+WRITE of size 16 at 0x60200000ef88 thread T0
+    #0 0x51b5ef in decode_field /src/decoder.c:142:5
+    #1 0x51b3a2 in decode_record /src/decoder.c:98:12
+    #2 0x51b29a in main /src/main.c:45:5
+    #3 0x7f1234567b96 in __libc_start_main /build/glibc/csu/../csu/libc-start.c:310:16
+
+0x60200000ef88 is located 24 bytes to the right of 64-byte region [0x60200000ef40,0x60200000ef80)
+allocated by thread T0 here:
+    #0 0x4938d0 in malloc /llvm/lib/asan/asan_malloc_linux.cpp:145:3
+    #1 0x51b280 in decode_record /src/decoder.c:85:18
+
+SUMMARY: AddressSanitizer: heap-buffer-overflow /src/decoder.c:142:5 in decode_field
+Shadow bytes around the buggy address:
+  0x0c048000fda0: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+=>0x0c048000fdc0: 00 00 00 00 00 00 00 00[fa]fa fa fa fa fa fa fa
+==55555==ABORTING

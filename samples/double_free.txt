@@ -1,0 +1,20 @@
+=================================================================
+==99005==ERROR: AddressSanitizer: attempting double-free on 0x61400000fe40 in thread T0:
+    #0 0x493b50 in free /llvm/lib/asan/asan_malloc_linux.cpp:123:3
+    #1 0x4d2100 in cleanup_handler /src/handler.c:65:5
+    #2 0x4d1000 in main /src/main.c:40:5
+    #3 0x7f0011223b96 in __libc_start_main /build/glibc/csu/../csu/libc-start.c:310:16
+
+0x61400000fe40 is located 0 bytes inside of 128-byte region [0x61400000fe40,0x61400000fec0)
+freed by thread T0 here:
+    #0 0x493b50 in free /llvm/lib/asan/asan_malloc_linux.cpp:123:3
+    #1 0x4d1f00 in release_resource /src/handler.c:48:5
+    #2 0x4d1000 in main /src/main.c:35:5
+
+previously allocated by thread T0 here:
+    #0 0x4938d0 in malloc /llvm/lib/asan/asan_malloc_linux.cpp:145:3
+    #1 0x4d1200 in create_resource /src/handler.c:20:22
+    #2 0x4d1000 in main /src/main.c:28:5
+
+SUMMARY: AddressSanitizer: double-free /llvm/lib/asan/asan_malloc_linux.cpp:123:3 in free
+==99005==ABORTING

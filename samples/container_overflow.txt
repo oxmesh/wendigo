@@ -1,0 +1,14 @@
+=================================================================
+==99012==ERROR: AddressSanitizer: container-overflow on address 0x60400000dfd0 at pc 0x0000004d2300 bp 0x7ffc44556670 sp 0x7ffc44556668
+READ of size 4 at 0x60400000dfd0 thread T0
+    #0 0x4d22ff in iterate_vec /src/container.cpp:45:12
+    #1 0x4d1800 in process /src/container.cpp:30:5
+    #2 0x4d1000 in main /src/main.cpp:10:5
+
+0x60400000dfd0 is located 16 bytes inside of 64-byte region [0x60400000dfc0,0x60400000e000)
+allocated by thread T0 here:
+    #0 0x4938d0 in operator new(unsigned long) /llvm/lib/asan/asan_new_delete.cpp:95:3
+    #1 0x4d1600 in std::vector<int>::push_back /usr/include/c++/12/bits/stl_vector.h:1198:9
+
+SUMMARY: AddressSanitizer: container-overflow /src/container.cpp:45:12 in iterate_vec
+==99012==ABORTING

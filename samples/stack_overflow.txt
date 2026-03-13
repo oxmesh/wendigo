@@ -1,0 +1,14 @@
+=================================================================
+==11111==ERROR: AddressSanitizer: stack-buffer-overflow on address 0x7ffd12345698 at pc 0x00000051a100 bp 0x7ffd12345620 sp 0x7ffd12344dc0
+WRITE of size 256 at 0x7ffd12345698 thread T0
+    #0 0x51a0ff in vulnerable_copy /home/user/stack.c:18:5
+    #1 0x51a200 in parse_header /home/user/stack.c:30:12
+    #2 0x51a300 in main /home/user/stack.c:8:5
+
+Address 0x7ffd12345698 is located in stack of thread T0 at offset 152 in frame
+    #0 0x51a050 in vulnerable_copy /home/user/stack.c:10
+
+  This frame has 1 object(s):
+    [32, 96) 'buf' (line 12) <== Memory access at offset 152 is located 56 bytes to the right of 64-byte region 'buf' of size 64
+
+SUMMARY: AddressSanitizer: stack-buffer-overflow /home/user/stack.c:18:5 in vulnerable_copy

@@ -1,0 +1,22 @@
+=================================================================
+==12345==ERROR: AddressSanitizer: heap-buffer-overflow on address 0x60200000efb8 at pc 0x00000051b5f0 bp 0x7ffd348ab350 sp 0x7ffd348aab00
+WRITE of size 4 at 0x60200000efb8 thread T0
+    #0 0x51b5ef in vuln_function /home/user/vuln.c:42:5
+    #1 0x51b3a2 in process_input /home/user/vuln.c:28:12
+    #2 0x51b29a in main /home/user/vuln.c:15:5
+    #3 0x7f1234567b96 in __libc_start_main /build/glibc/csu/../csu/libc-start.c:310:16
+    #4 0x419d09 in _start (/home/user/vuln+0x419d09)
+
+0x60200000efb8 is located 8 bytes to the right of 64-byte region [0x60200000ef70,0x60200000efb0)
+allocated by thread T0 here:
+    #0 0x4938d0 in malloc /llvm/lib/asan/asan_malloc_linux.cpp:145:3
+    #1 0x51b280 in process_input /home/user/vuln.c:25:18
+    #2 0x51b29a in main /home/user/vuln.c:15:5
+
+SUMMARY: AddressSanitizer: heap-buffer-overflow /home/user/vuln.c:42:5 in vuln_function
+Shadow bytes around the buggy address:
+  0x0c048000fda0: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+  0x0c048000fdb0: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+=>0x0c048000fdc0: 00 00 00 00 00 00 00 00[fa]fa fa fa fa fa fa fa
+  0x0c048000fdd0: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+==12345==ABORTING

@@ -1,0 +1,9 @@
+==12345==WARNING: MemorySanitizer: use-of-uninitialized-value
+    #0 0x4f2c0f in process_data /src/proc.c:45:8
+    #1 0x4f1a22 in main /src/main.c:20:5
+
+  Uninitialized value was created by a heap allocation
+    #0 0x4938d0 in malloc /llvm/lib/msan/msan_interceptors.cpp:145:3
+    #1 0x4f1800 in alloc_buf /src/proc.c:30:18
+
+SUMMARY: MemorySanitizer: use-of-uninitialized-value /src/proc.c:45:8 in process_data

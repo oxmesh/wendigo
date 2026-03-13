@@ -1,0 +1,11 @@
+=================================================================
+==99007==ERROR: AddressSanitizer: stack-use-after-return on address 0x7f0012340020 at pc 0x0000004f1100 bp 0x7ffd55667780 sp 0x7ffd55667778
+READ of size 4 at 0x7f0012340020 thread T0
+    #0 0x4f10ff in use_stale_ptr /src/sar.c:35:14
+    #1 0x4f0800 in main /src/main.c:22:5
+
+Address 0x7f0012340020 is located in stack of thread T0 at offset 32 in frame
+    #0 0x4f0a00 in get_local_ref /src/sar.c:18
+
+SUMMARY: AddressSanitizer: stack-use-after-return /src/sar.c:35:14 in use_stale_ptr
+==99007==ABORTING

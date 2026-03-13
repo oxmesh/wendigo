@@ -1,0 +1,20 @@
+=================================================================
+==99004==ERROR: AddressSanitizer: heap-use-after-free on address 0x61400000fe44 at pc 0x0000004c3a00 bp 0x7ffc33445560 sp 0x7ffc33445558
+WRITE of size 8 at 0x61400000fe44 thread T0
+    #0 0x4c39ff in update_cache /src/cache.c:92:10
+    #1 0x4c2800 in process_event /src/event.c:44:5
+    #2 0x4c1000 in main /src/main.c:28:5
+
+0x61400000fe44 is located 4 bytes inside of 128-byte region [0x61400000fe40,0x61400000fec0)
+freed by thread T0 here:
+    #0 0x493b50 in free /llvm/lib/asan/asan_malloc_linux.cpp:123:3
+    #1 0x4c2700 in cleanup_cache /src/cache.c:78:5
+    #2 0x4c1000 in main /src/main.c:25:5
+
+previously allocated by thread T0 here:
+    #0 0x4938d0 in malloc /llvm/lib/asan/asan_malloc_linux.cpp:145:3
+    #1 0x4c1500 in init_cache /src/cache.c:15:22
+    #2 0x4c1000 in main /src/main.c:20:5
+
+SUMMARY: AddressSanitizer: heap-use-after-free /src/cache.c:92:10 in update_cache
+==99004==ABORTING

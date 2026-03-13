@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wendigo — The corruption lurking in memory</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>👁 <span>Wendigo</span></h1>
+            <div class="header-actions">
+                <button class="btn" onclick="newAnalysis()">New Analysis</button>
+                <button class="btn" onclick="exportPNG()">Export PNG</button>
+                <button class="btn" onclick="exportHTML()">Export HTML</button>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        <!-- Upload Section -->
+        <div id="upload-section" class="{{ 'hidden' if has_report else '' }}">
+            <div class="card">
+                <h2>Analyze ASAN Log</h2>
+                <div class="upload-area" onclick="document.getElementById('log-file').click()">
+                    <p style="font-size: 36px; margin-bottom: 12px;">📂</p>
+                    <p>Drop ASAN log file here or click to browse</p>
+                    <input type="file" id="log-file" style="display:none" accept=".txt,.log,.asan" onchange="handleUpload()">
+                </div>
+                <p style="text-align: center; color: var(--text-dim); margin: 12px 0;">— or paste ASAN output —</p>
+                <textarea id="log-text" placeholder="Paste ASAN output here...&#10;&#10;==12345==ERROR: AddressSanitizer: heap-buffer-overflow on address 0x..."></textarea>
+                <div class="mt-12" style="text-align: right;">
+                    <button class="btn btn-primary" onclick="handleUpload()">Analyze</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Report Section -->
+        <div id="report-section" class="{{ '' if has_report else 'hidden' }}">
+            <!-- Summary Card -->
+            <div class="card">
+                <h2>Summary</h2>
+                <div class="summary-grid">
+                    <div class="summary-item">
+                        <label>Bug Type</label>
+                        <div class="value" id="bug-type">—</div>
+                    </div>
+                    <div class="summary-item">
+                        <label>Category</label>
+                        <div class="value" id="bug-category">—</div>
+                    </div>
+                    <div class="summary-item">
+                        <label>Access</label>
+                        <div class="value" id="access-info">—</div>
+                    </div>
+                    <div class="summary-item">
+                        <label>Address</label>
+                        <div class="value" id="address" style="font-family: 'SF Mono', monospace; font-size: 14px;">—</div>
+                    </div>
+                    <div class="summary-item">
+                        <label>Severity</label>
+                        <div><span class="severity-badge" id="severity-badge">—</span></div>
+                    </div>
+                    <div class="summary-item">
+                        <label>Score</label>
+                        <div class="value" id="score">—</div>
+                    </div>
+                </div>
+                <div class="one-liner" id="one-liner">—</div>
+            </div>
+
+            <!-- Diagram -->
+            <div class="card">
+                <h2>Memory Visualization</h2>
+                <div id="diagram-container"></div>
+            </div>
+
+            <div class="two-col">
+                <!-- Exploitability -->
+                <div class="card">
+                    <h2>Exploitability Factors</h2>
+                    <ul class="factors-list" id="factors-list"></ul>
+                </div>
+
+                <!-- Crash Stack Trace -->
+                <div class="card">
+                    <h2>Crash Stack Trace</h2>
+                    <div class="stack-trace" id="stack-trace"></div>
+                </div>
+            </div>
+
+            <!-- Heap info (conditional) -->
+            <div class="card hidden" id="heap-traces">
+                <h2>Heap Information</h2>
+                <p id="heap-summary" style="margin-bottom: 12px; color: var(--text-dim);"></p>
+                <div class="two-col">
+                    <div>
+                        <h3 style="font-size: 13px; color: var(--green); margin-bottom: 8px;">Allocation Trace</h3>
+                        <div class="stack-trace" id="alloc-trace"></div>
+                    </div>
+                    <div>
+                        <h3 style="font-size: 13px; color: var(--red); margin-bottom: 8px;">Free Trace</h3>
+                        <div class="stack-trace" id="free-trace"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="svg-tooltip" id="tooltip"></div>
+
+    {% if report_data %}
+    <script id="report-data" type="application/json">{{ report_data|safe }}</script>
+    {% else %}
+    <script id="report-data" type="application/json"></script>
+    {% endif %}
+    <script src="/static/diagrams.js"></script>
+</body>
+</html>
+

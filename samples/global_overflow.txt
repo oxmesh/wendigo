@@ -1,0 +1,9 @@
+=================================================================
+==99011==ERROR: AddressSanitizer: global-buffer-overflow on address 0x000000604120 at pc 0x0000004c1200 bp 0x7ffc33445560 sp 0x7ffc33445558
+READ of size 4 at 0x000000604120 thread T0
+    #0 0x4c11ff in read_global /src/global.c:28:10
+    #1 0x4c0800 in main /src/main.c:15:5
+
+0x000000604120 is located 0 bytes to the right of global variable 'g_table' defined in '/src/global.c:5:5' (0x604100) of size 32
+SUMMARY: AddressSanitizer: global-buffer-overflow /src/global.c:28:10 in read_global
+==99011==ABORTING

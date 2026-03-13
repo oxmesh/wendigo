@@ -1,0 +1,12 @@
+[  123.456789] ==================================================================
+[  123.456790] BUG: KASAN: slab-out-of-bounds in kmem_cache_alloc+0x1a2/0x1b0
+[  123.456791] Read of size 8 at addr ffff88800a1b2c40 by task test/1234
+[  123.456792]
+[  123.456793] CPU: 0 PID: 1234 Comm: test Not tainted 5.15.0 #1
+[  123.456794] Call Trace:
+[  123.456795]  dump_stack+0x1a/0x20
+[  123.456796]  kasan_report+0x3a/0x50
+[  123.456797]  kmem_cache_alloc+0x1a2/0x1b0
+[  123.456798]  vulnerable_driver_ioctl+0x88/0x100
+[  123.456799]
+[  123.456800] SUMMARY: KASAN: slab-out-of-bounds in kmem_cache_alloc+0x1a2/0x1b0

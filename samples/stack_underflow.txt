@@ -1,0 +1,14 @@
+=================================================================
+==99006==ERROR: AddressSanitizer: stack-buffer-underflow on address 0x7ffd12345600 at pc 0x0000004e1100 bp 0x7ffd12345620 sp 0x7ffd12345618
+WRITE of size 4 at 0x7ffd12345600 thread T0
+    #0 0x4e10ff in underflow_func /src/stack_bug.c:25:5
+    #1 0x4e0800 in main /src/main.c:15:5
+
+Address 0x7ffd12345600 is located in stack of thread T0 at offset 24 in frame
+    #0 0x4e1000 in underflow_func /src/stack_bug.c:20
+
+  This frame has 1 object(s):
+    [32, 96) 'buffer' (line 21) <== Memory access at offset 24 is located 8 bytes to the left of 64-byte region 'buffer' of size 64
+
+SUMMARY: AddressSanitizer: stack-buffer-underflow /src/stack_bug.c:25:5 in underflow_func
+==99006==ABORTING

@@ -1,0 +1,15 @@
+=================================================================
+==99001==ERROR: AddressSanitizer: heap-buffer-overflow on address 0x61d00001a100 at pc 0x0000004f2c10 bp 0x7ffc3a1b2340 sp 0x7ffc3a1b1af0
+WRITE of size 4096 at 0x61d00001a100 thread T0
+    #0 0x4f2c0f in parse_chunk /src/decoder.c:312:9
+    #1 0x4f1a22 in decode_frame /src/decoder.c:198:12
+    #2 0x4f0800 in main /src/main.c:45:5
+    #3 0x7f0011223b96 in __libc_start_main /build/glibc/csu/../csu/libc-start.c:310:16
+
+0x61d00001a100 is located 256 bytes to the right of 512-byte region [0x61d000019f00,0x61d00001a100)
+allocated by thread T0 here:
+    #0 0x4938d0 in malloc /llvm/lib/asan/asan_malloc_linux.cpp:145:3
+    #1 0x4f0900 in decode_frame /src/decoder.c:180:22
+
+SUMMARY: AddressSanitizer: heap-buffer-overflow /src/decoder.c:312:9 in parse_chunk
+==99001==ABORTING

@@ -1,0 +1,20 @@
+=================================================================
+==67890==ERROR: AddressSanitizer: heap-use-after-free on address 0x61400000fe44 at pc 0x00000051c8a0 bp 0x7ffd9a8bc560 sp 0x7ffd9a8bc558
+READ of size 8 at 0x61400000fe44 thread T0
+    #0 0x51c89f in use_object /home/user/uaf.c:55:10
+    #1 0x51c612 in handle_request /home/user/uaf.c:38:5
+    #2 0x51c3a0 in main /home/user/uaf.c:20:5
+    #3 0x7f9876543b96 in __libc_start_main /build/glibc/csu/../csu/libc-start.c:310:16
+
+0x61400000fe44 is located 4 bytes inside of 128-byte region [0x61400000fe40,0x61400000fec0)
+freed by thread T0 here:
+    #0 0x493b50 in free /llvm/lib/asan/asan_malloc_linux.cpp:123:3
+    #1 0x51c5f0 in destroy_object /home/user/uaf.c:33:5
+    #2 0x51c3a0 in main /home/user/uaf.c:18:5
+
+previously allocated by thread T0 here:
+    #0 0x4938d0 in malloc /llvm/lib/asan/asan_malloc_linux.cpp:145:3
+    #1 0x51c400 in create_object /home/user/uaf.c:12:22
+    #2 0x51c3a0 in main /home/user/uaf.c:16:5
+
+SUMMARY: AddressSanitizer: heap-use-after-free /home/user/uaf.c:55:10 in use_object
